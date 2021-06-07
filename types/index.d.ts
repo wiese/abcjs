@@ -13,7 +13,6 @@ declare module 'abcjs' {
 	// TODO : to be detailed and enhanced later
 	export type Pitches = [any]
 
-	export type AbcParams = any
 	export interface AudioContextPromise {
 		cached: [any]
 		error: [any]
@@ -43,8 +42,8 @@ declare module 'abcjs' {
 	//
 	export interface SynthObjectController {
 		disable(isDisabled: boolean): void
-		setTune(visualObj: TuneObject, userAction: Boolean, audioParams?: AbcParams): Promise<any>
-		load(selector: string, cursorControl?: any, visualOptions?: AbcParams): void
+		setTune(visualObj: TuneObject, userAction: Boolean, audioParams?: any): Promise<any>
+		load(selector: string, cursorControl?: any, visualOptions?: any): void
 		play(): void
 		pause(): void
 		toggleLoop(): void
@@ -59,7 +58,7 @@ declare module 'abcjs' {
 	//
 	let signature: string
 
-	export function renderAbc(target: Selector, code: string, params?: AbcParams): TuneObjectArray
+	export function renderAbc(target: Selector, code: string, params?: any): TuneObjectArray
 
 	//
 	// Basic Audio Stuff
@@ -71,8 +70,8 @@ declare module 'abcjs' {
 		let CreateSynth: { new (): MidiBuffer }
 
 		export function supportsAudio(): boolean
-		export function CreateSynthControl(element: Selector, options: AbcParams): AudioControl
-		export function getMidiFile(source: String | TuneObject, options?: AbcParams): MidiFile
+		export function CreateSynthControl(element: Selector, options: any): AudioControl
+		export function getMidiFile(source: String | TuneObject, options?: any): MidiFile
 		export function synthSequence(): AudioSequence
 		export function playEvent(pitches: Pitches, graceNotes: Pitches, milliSecondsPerMeasure: number): Promise<any>
 		export function activeAudioContext(): AudioContext
