@@ -58,7 +58,73 @@ declare module 'abcjs' {
 	//
 	let signature: string
 
-	export function renderAbc(target: Selector, code: string, params?: any): TuneObjectArray
+	export interface ClickListenerAnalysis {
+		line: number, // zero-based line
+		measure: number, // zero-based measure from the beginning of the line
+		voice: number, // zero-based voice
+		staffPos: {
+			top: number
+			height: number
+			zero: number
+		} // the Y-coordinates in the SVG for the staff system that contains the item. "zero" is the Y-coordinate of the middle-C.
+	}
+
+	export type Color = string
+	export type RenderAbcFormat = Record<string, any> // TODO this is a universe in itself
+	export type RenderAbcResponsiveOptions = "resize"
+	export type RenderAbcSelectTypes = boolean | Record<string, boolean> // TODO add valid keys (author, clef, …)
+	export type RenderAbcShowDebugOptions = "grid" | "box"
+
+	export interface RenderAbcOptions {
+		add_classes?: boolean
+		// TODO tune
+		afterParsing?: (tune: object, tuneNumber: number, abcString: string) => undefined
+		clickListener?: (
+			abcElem: object, // TODO
+			tuneNumber: number,
+			classes: [string],
+			analysis: ClickListenerAnalysis,
+			drag, // TODO
+			mouseEvent: MouseEvent // missing in https://paulrosen.github.io/abcjs/visual/render-abc-options.html
+		) => undefined
+		dragColor?: Color
+		dragging?: boolean
+		foregroundColor?: Color
+		format?: RenderAbcFormat
+		hint_measures?: boolean
+		lineBreaks?: [number]
+		minPadding?: number
+		oneSvgPerLine?: boolean
+		paddingbottom?: number
+		paddingleft?: number
+		paddingright?: number
+		paddingtop?: number
+		print?: boolean
+		responsive?: RenderAbcResponsiveOptions
+		scale?: number
+		scrollHorizontal?: boolean
+		selectionColor?: Color
+		selectTypes?: RenderAbcSelectTypes
+		showDebug?: [RenderAbcShowDebugOptions]
+		staffwidth?: number
+		startingTune?: number
+		textboxpadding?: number
+		viewportHorizontal?: boolean
+		viewportVertical?: boolean
+		visualTranspose?: number
+		wrap?: {
+			preferredMeasuresPerLine?: number
+			minSpacing?: number
+			maxSpacing?: number
+			lastLineLimit?: number
+		}
+	}
+
+	export function renderAbc(
+		target: Selector,
+		code: string,
+		params?: RenderAbcOptions
+	): TuneObjectArray
 
 	//
 	// Basic Audio Stuff
